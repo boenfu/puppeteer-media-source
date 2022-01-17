@@ -24,22 +24,29 @@ export async function newPage({
 }: PageOptions): Promise<Puppeteer.Page> {
   return new Promise((resolve, reject) => {
     autoClosePage(async page => {
-      let manager = new MediaSourceManager(page);
-
-      page.manager = manager;
-
       await page.goto(url);
 
-      await page.addScriptTag({
-        content: (
-          await FS.readFile(Path.join(__dirname, '../../res/tamper-monkey.js'))
-        ).toString(),
-      });
+      await puppeteerMediaSource(page);
 
       await new Promise<void>(release => {
         page.release = release;
         resolve(page);
       });
     }, remote).catch(reject);
+  });
+}
+
+export async function puppeteerMediaSource(
+  page: Puppeteer.Page,
+): Promise<void> {
+  page.manager = new MediaSourceManager(page);
+  await injectScript(page);
+}
+
+export async function injectScript(page: Puppeteer.Page): Promise<void> {
+  await page.addScriptTag({
+    content: (
+      await FS.readFile(Path.join(__dirname, '../../res/tamper-monkey.js'))
+    ).toString(),
   });
 }
