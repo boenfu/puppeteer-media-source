@@ -1,4 +1,4 @@
-export * from './media-source-manager';
-export * from './media-source';
-export * from './page';
 export * from './extract';
+export * from './manager';
+export * from './page';
+export * from './source';

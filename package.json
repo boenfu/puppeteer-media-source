@@ -15,16 +15,16 @@
   "dependencies": {
     "@types/fs-extra": "^9.0.13",
     "fs-extra": "^10.0.0",
-    "puppeteer-core": "^13.0.1",
-    "puppeteer-page": "^0.2.0",
+    "puppeteer-core": "^13.4.0",
+    "puppeteer-page": "^0.4.1",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
     "@mufan/code": "^0.2.10",
     "@mufan/eslint-plugin": "^0.1.48",
-    "eslint": "^8.6.0",
+    "eslint": "^8.9.0",
     "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
-    "typescript": "^4.5.4"
+    "typescript": "^4.5.5"
   }
 }

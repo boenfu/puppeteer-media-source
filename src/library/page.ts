@@ -1,19 +1,17 @@
-import * as FS from 'fs/promises';
-import * as Path from 'path';
-
 import Puppeteer from 'puppeteer-core';
 import {AutoClosePageOptions, autoClosePage} from 'puppeteer-page';
 
-import {MediaSourceManager} from './media-source-manager';
+import {injectScript} from './@inject';
+import {MediaSourceManager} from './manager';
 
 declare module 'puppeteer-core' {
   interface Page {
     manager: MediaSourceManager;
-    release: () => void;
+    release?: () => void;
   }
 }
 
-interface PageOptions {
+export interface PageOptions {
   url: string;
   remote: AutoClosePageOptions;
 }
@@ -41,12 +39,4 @@ export async function puppeteerMediaSource(
 ): Promise<void> {
   page.manager = new MediaSourceManager(page);
   await injectScript(page);
-}
-
-export async function injectScript(page: Puppeteer.Page): Promise<void> {
-  await page.addScriptTag({
-    content: (
-      await FS.readFile(Path.join(__dirname, '../../res/tamper-monkey.js'))
-    ).toString(),
-  });
 }

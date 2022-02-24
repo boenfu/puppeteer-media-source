@@ -2,7 +2,7 @@ import * as Path from 'path';
 
 import * as FS from 'fs-extra';
 
-import {MediaSource} from './media-source';
+import {MediaSource} from './source';
 
 export async function extractMediaSource(
   mediaSource: MediaSource,

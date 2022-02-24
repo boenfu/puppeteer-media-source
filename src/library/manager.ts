@@ -1,6 +1,6 @@
 import Puppeteer from 'puppeteer-core';
 
-import {MediaSource} from './media-source';
+import {MediaSource} from './source';
 
 export class MediaSourceManager {
   mediaSourceMap: Map<string, MediaSource> = new Map();
@@ -8,6 +8,7 @@ export class MediaSourceManager {
   private resolver = Promise.resolve();
 
   constructor(page: Puppeteer.Page) {
+    // console.log('__pms', id, type, ...args)
     page.on('console', async msg => {
       let [tag, ...args] = msg.args();
 
@@ -22,6 +23,7 @@ export class MediaSourceManager {
           ...any[]
         ],
       );
+
       let mediaSource = this.mediaSourceMap.get(id);
 
       if (!mediaSource) {
